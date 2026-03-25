@@ -121,6 +121,34 @@ paths:
           schema:
             $ref: '#/definitions/Scene'
 
+  /timeline/events:
+    get:
+      summary: List all timeline events
+      tags:
+        - Timeline
+      responses:
+        200:
+          description: A list of timeline events
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TimelineEvent'
+    post:
+      summary: Create a new timeline event
+      tags:
+        - Timeline
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TimelineEventInput'
+      responses:
+        201:
+          description: Created timeline event
+          schema:
+            $ref: '#/definitions/TimelineEvent'
+
 definitions:
   Character:
     type: object
@@ -278,3 +306,42 @@ definitions:
         type: string
       resolution:
         type: string
+
+  TimelineEvent:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      title:
+        type: string
+      description:
+        type: string
+      chronological_order:
+        type: integer
+        format: int32
+        description: 'The global chronological ordering of this event.'
+      scene_id:
+        type: string
+        format: uuid
+        description: 'Optional: The specific scene where this event happens.'
+      created_at:
+        type: string
+        format: date-time
+
+  TimelineEventInput:
+    type: object
+    required:
+      - title
+      - chronological_order
+    properties:
+      title:
+        type: string
+      description:
+        type: string
+      chronological_order:
+        type: integer
+        format: int32
+      scene_id:
+        type: string
+        format: uuid
