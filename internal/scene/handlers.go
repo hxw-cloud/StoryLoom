@@ -63,8 +63,8 @@ func HandlePostScenes(params scene_ops.PostScenesParams) middleware.Responder {
 	// to safely extract their values without risking nil-pointer panics.
 	newScene := Scene{
 		Title:          swag.StringValue(input.Title),
-		PlotCardID:     swag.StringValue(input.PlotCardId),
-		POVCharacterID: input.PovCharacterId,
+		PlotCardID:     swag.StringValue(input.PlotCardID),
+		POVCharacterID: input.PovCharacterID,
 		Goal:           input.Goal,
 		Conflict:       input.Conflict,
 		Resolution:     input.Resolution,
