@@ -33,6 +33,7 @@ StoryLoom is a professional SaaS platform designed for long-form novel writers. 
 ## Engineering Conventions
 - **Code Style:** Strictly adhere to [gofumpt](https://github.com/mvdan/gofumpt). All Go code must be formatted with `gofumpt -l -w .`.
 - **Comment Rate:** Code must maintain a comment rate of **at least 30%**. Provide clear, descriptive comments explaining the "why" and "how" of complex logic, not just the "what".
+- **Test-Driven Development (TDD):** Every feature must have unit tests. Tests must be written, executed (`go test ./...`), and passed before a feature is considered complete.
 - **Domain-Driven Design (DDD):** Logic must be encapsulated within its respective module in `/internal`.
 - **Logic Validation:** Every module should have an "Editor Check" (AI-driven or rule-based) to ensure consistency (e.g., character POV consistency, timeline paradoxes).
 - **Persistence:** Use GORM. Ensure schema migrations are handled cleanly for SQLite.
