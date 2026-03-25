@@ -93,6 +93,34 @@ paths:
           schema:
             $ref: '#/definitions/WorldSetting'
 
+  /scenes:
+    get:
+      summary: List all scenes
+      tags:
+        - Scene
+      responses:
+        200:
+          description: A list of scenes
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Scene'
+    post:
+      summary: Create a new scene
+      tags:
+        - Scene
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SceneInput'
+      responses:
+        201:
+          description: Created scene
+          schema:
+            $ref: '#/definitions/Scene'
+
 definitions:
   Character:
     type: object
@@ -199,4 +227,54 @@ definitions:
       description:
         type: string
       logic_rules:
+        type: string
+
+  Scene:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      title:
+        type: string
+      plot_card_id:
+        type: string
+        format: uuid
+        description: 'The narrative beat this scene belongs to.'
+      pov_character_id:
+        type: string
+        format: uuid
+        description: 'The character whose perspective this scene is written from.'
+      goal:
+        type: string
+        description: 'What the POV character wants to achieve in this scene.'
+      conflict:
+        type: string
+        description: 'The obstacle preventing the character from achieving their goal.'
+      resolution:
+        type: string
+        description: 'How the scene ends (e.g., Disaster, Success, Yes but...).'
+      created_at:
+        type: string
+        format: date-time
+
+  SceneInput:
+    type: object
+    required:
+      - title
+      - plot_card_id
+    properties:
+      title:
+        type: string
+      plot_card_id:
+        type: string
+        format: uuid
+      pov_character_id:
+        type: string
+        format: uuid
+      goal:
+        type: string
+      conflict:
+        type: string
+      resolution:
         type: string

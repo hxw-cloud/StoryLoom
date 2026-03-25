@@ -11,11 +11,13 @@ import (
 
 	"github.com/hxw-cloud/StoryLoom/internal/character"
 	"github.com/hxw-cloud/StoryLoom/internal/plot"
+	"github.com/hxw-cloud/StoryLoom/internal/scene"
 	"github.com/hxw-cloud/StoryLoom/internal/world"
 	"github.com/hxw-cloud/StoryLoom/pkg/db"
 	"github.com/hxw-cloud/StoryLoom/restapi/operations"
 	character_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/character"
 	plot_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/plot"
+	scene_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/scene"
 	world_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/world"
 )
 
@@ -38,6 +40,7 @@ func configureAPI(api *operations.StoryloomAPI) http.Handler {
 		&world.WorldSetting{},
 		&character.Character{},
 		&plot.PlotCard{},
+		&scene.Scene{},
 	)
 	if err != nil {
 		panic("Failed to migrate database schema: " + err.Error())
@@ -71,6 +74,10 @@ func configureAPI(api *operations.StoryloomAPI) http.Handler {
 	// Register Plot Handlers
 	api.PlotGetPlotsHandler = plot_ops.GetPlotsHandlerFunc(plot.HandleGetPlots)
 	api.PlotPostPlotsHandler = plot_ops.PostPlotsHandlerFunc(plot.HandlePostPlots)
+
+	// Register Scene Handlers
+	api.SceneGetScenesHandler = scene_ops.GetScenesHandlerFunc(scene.HandleGetScenes)
+	api.ScenePostScenesHandler = scene_ops.PostScenesHandlerFunc(scene.HandlePostScenes)
 
 	api.PreServerShutdown = func() {}
 
