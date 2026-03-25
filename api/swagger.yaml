@@ -65,6 +65,34 @@ paths:
           schema:
             $ref: '#/definitions/PlotCard'
 
+  /world/settings:
+    get:
+      summary: List all world settings
+      tags:
+        - World
+      responses:
+        200:
+          description: A list of world settings
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WorldSetting'
+    post:
+      summary: Create a new world setting
+      tags:
+        - World
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/WorldSettingInput'
+      responses:
+        201:
+          description: Created world setting
+          schema:
+            $ref: '#/definitions/WorldSetting'
+
 definitions:
   Character:
     type: object
@@ -137,3 +165,38 @@ definitions:
       order_index:
         type: integer
         format: int32
+
+  WorldSetting:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      category:
+        type: string
+        description: 'e.g., Geography, Magic System, Technology, Race'
+      name:
+        type: string
+      description:
+        type: string
+      logic_rules:
+        type: string
+        description: 'Rules that this setting imposes on the world (used for logic validation)'
+      created_at:
+        type: string
+        format: date-time
+
+  WorldSettingInput:
+    type: object
+    required:
+      - category
+      - name
+    properties:
+      category:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      logic_rules:
+        type: string

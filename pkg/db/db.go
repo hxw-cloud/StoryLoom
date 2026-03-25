@@ -12,7 +12,7 @@ import (
 
 var DB *gorm.DB
 
-// InitDB initializes the SQLite database connection using GORM.
+// InitDB initializes the SQLite database connection using Gorm.
 func InitDB(dbPath string) {
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags),
@@ -30,9 +30,6 @@ func InitDB(dbPath string) {
 	if err != nil {
 		log.Fatalf("failed to connect database: %v", err)
 	}
-
-	// Auto-migrate standard models here later
-	// db.AutoMigrate(&models.Character{}, &models.PlotCard{})
 
 	DB = db
 	log.Println("Database connection successfully initialized.")

@@ -12,6 +12,8 @@ require (
 	github.com/go-openapi/validate v0.25.2
 	github.com/jessevdk/go-flags v1.6.1
 	golang.org/x/net v0.52.0
+	gorm.io/driver/sqlite v1.6.0
+	gorm.io/gorm v1.31.1
 )
 
 require (
@@ -40,6 +42,4 @@ require (
 	golang.org/x/sync v0.20.0 // indirect
 	golang.org/x/sys v0.42.0 // indirect
 	golang.org/x/text v0.35.0 // indirect
-	gorm.io/driver/sqlite v1.6.0 // indirect
-	gorm.io/gorm v1.31.1 // indirect
 )
