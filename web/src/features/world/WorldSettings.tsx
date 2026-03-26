@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { worldService } from '../../services/worldService';
-import { WorldSetting } from '../../services/types';
+import type { WorldSetting } from '../../services/types';
 import styles from './WorldSettings.module.css';
 
 const WorldSettings: React.FC = () => {

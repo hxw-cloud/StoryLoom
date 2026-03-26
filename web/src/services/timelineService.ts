@@ -1,5 +1,5 @@
 import apiClient from './api';
-import { TimelineEvent, TimelineEventInput } from './types';
+import type { TimelineEvent, TimelineEventInput } from './types';
 
 export const timelineService = {
   getEvents: async (): Promise<TimelineEvent[]> => {

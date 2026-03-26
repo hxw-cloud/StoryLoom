@@ -1,5 +1,5 @@
 import apiClient from './api';
-import { PlotCard, PlotCardInput } from './types';
+import type { PlotCard, PlotCardInput } from './types';
 
 export const plotService = {
   getPlots: async (): Promise<PlotCard[]> => {

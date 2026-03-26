@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { plotService } from '../../services/plotService';
-import { PlotCard } from '../../services/types';
+import type { PlotCard } from '../../services/types';
 import styles from './PlotOutline.module.css';
 
 const PlotOutline: React.FC = () => {

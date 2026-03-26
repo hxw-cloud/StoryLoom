@@ -1,5 +1,5 @@
 import apiClient from './api';
-import { Character, CharacterInput } from './types';
+import type { Character, CharacterInput } from './types';
 
 export const characterService = {
   getCharacters: async (): Promise<Character[]> => {

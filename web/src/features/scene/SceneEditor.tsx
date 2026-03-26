@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { sceneService } from '../../services/sceneService';
-import { Scene, AuditResult } from '../../services/types';
+import type { Scene, AuditResult } from '../../services/types';
 import styles from './SceneEditor.module.css';
 
 const SceneEditor: React.FC = () => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { characterService } from '../../services/characterService';
-import { Character } from '../../services/types';
+import type { Character } from '../../services/types';
 import styles from './Characters.module.css';
 
 const Characters: React.FC = () => {

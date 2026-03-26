@@ -1,5 +1,5 @@
 import apiClient from './api';
-import { Scene, SceneInput, AuditResult } from './types';
+import type { Scene, SceneInput, AuditResult } from './types';
 
 export const sceneService = {
   getScenes: async (): Promise<Scene[]> => {

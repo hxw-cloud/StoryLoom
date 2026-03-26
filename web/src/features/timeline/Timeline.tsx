@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { timelineService } from '../../services/timelineService';
-import { TimelineEvent } from '../../services/types';
+import type { TimelineEvent } from '../../services/types';
 import styles from './Timeline.module.css';
 
 const Timeline: React.FC = () => {
