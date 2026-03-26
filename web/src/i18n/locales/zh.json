@@ -6,7 +6,8 @@
     "loading": "正在打开原稿...",
     "actions": "操作",
     "new": "新建",
-    "use": "使用模板"
+    "use": "使用模板",
+    "search": "搜索..."
   },
   "nav": {
     "world": "世界观构建",
@@ -45,5 +46,29 @@
     "empty": "尚未定义设定。",
     "addError": "创建设定失败",
     "error": "加载世界数据失败。"
+  },
+  "character": {
+    "title": "角色系统",
+    "tabs": {
+      "list": "人物档案",
+      "network": "关系网络",
+      "arcs": "成长弧光"
+    },
+    "fields": {
+      "name": "全名",
+      "age": "年龄",
+      "gender": "性别",
+      "role": "结构化角色",
+      "camp": "阵营/势力",
+      "appearance": "外貌特征",
+      "background": "背景故事",
+      "want": "表面想要什么（目标）",
+      "need": "内心需要什么（成长）",
+      "persona": "人格/语调模板"
+    },
+    "newCharacter": "新增角色",
+    "empty": "尚未追踪任何角色。创建你的主角吧！",
+    "addError": "创建角色失败",
+    "error": "加载角色数据失败。"
   }
 }

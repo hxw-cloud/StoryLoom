@@ -1,15 +1,54 @@
 export interface Character {
   id: string;
   name: string;
+  age?: number;
+  gender?: string;
   role: string;
+  camp?: string;
+  appearance?: string;
+  background?: string;
   pov_type?: string;
+  image_url?: string;
+  want?: string;
+  need?: string;
+  persona_template?: string;
   created_at: string;
 }
 
 export interface CharacterInput {
   name: string;
+  age?: number;
+  gender?: string;
   role: string;
+  camp?: string;
+  appearance?: string;
+  background?: string;
   pov_type?: string;
+  image_url?: string;
+  want?: string;
+  need?: string;
+  persona_template?: string;
+}
+
+export interface Relationship {
+  source_id: string;
+  target_id: string;
+  type: string;
+  description?: string;
+}
+
+export interface RelationshipInput {
+  source_id: string;
+  target_id: string;
+  type: string;
+  description?: string;
+}
+
+export interface CharacterArc {
+  character_id: string;
+  plot_card_id: string;
+  state_change: string;
+  internal_growth: number;
 }
 
 export interface PlotCard {

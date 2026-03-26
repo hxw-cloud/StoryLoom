@@ -14,6 +14,13 @@ paths:
       summary: List all characters
       tags:
         - Character
+      parameters:
+        - name: camp
+          in: query
+          type: string
+        - name: search
+          in: query
+          type: string
       responses:
         200:
           description: A list of characters
@@ -36,6 +43,90 @@ paths:
           description: Created character
           schema:
             $ref: '#/definitions/Character'
+
+  /characters/{id}:
+    get:
+      summary: Get character details
+      tags:
+        - Character
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Character'
+        404:
+          description: Not found
+    put:
+      summary: Update character
+      tags:
+        - Character
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CharacterInput'
+      responses:
+        200:
+          description: Updated
+        404:
+          description: Not found
+
+  /characters/relationships:
+    get:
+      summary: Get all character relationships (Network Map)
+      tags:
+        - Character
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Relationship'
+    post:
+      summary: Create or update a relationship
+      tags:
+        - Character
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/RelationshipInput'
+      responses:
+        201:
+          description: Created
+
+  /characters/{id}/arcs:
+    get:
+      summary: Get character growth arc tracking
+      tags:
+        - Character
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CharacterArc'
 
   /plots:
     get:
@@ -306,12 +397,33 @@ definitions:
         format: uuid
       name:
         type: string
+      age:
+        type: integer
+      gender:
+        type: string
       role:
         type: string
         description: 'e.g., Protagonist, Antagonist, Supporting'
+      camp:
+        type: string
+        description: 'Faction or organization'
+      appearance:
+        type: string
+      background:
+        type: string
       pov_type:
         type: string
-        description: 'e.g., First Person, Third Person Limited'
+      image_url:
+        type: string
+      want:
+        type: string
+        description: 'External goal (REQ-2.2)'
+      need:
+        type: string
+        description: 'Internal need (REQ-2.2)'
+      persona_template:
+        type: string
+        description: 'Vocabulary/Voice style (REQ-2.5)'
       created_at:
         type: string
         format: date-time
@@ -324,10 +436,76 @@ definitions:
     properties:
       name:
         type: string
+      age:
+        type: integer
+      gender:
+        type: string
       role:
+        type: string
+      camp:
+        type: string
+      appearance:
+        type: string
+      background:
         type: string
       pov_type:
         type: string
+      image_url:
+        type: string
+      want:
+        type: string
+      need:
+        type: string
+      persona_template:
+        type: string
+
+  Relationship:
+    type: object
+    properties:
+      source_id:
+        type: string
+        format: uuid
+      target_id:
+        type: string
+        format: uuid
+      type:
+        type: string
+        description: 'Blood, Love, Rival, Mentor, etc.'
+      description:
+        type: string
+
+  RelationshipInput:
+    type: object
+    required:
+      - source_id
+      - target_id
+      - type
+    properties:
+      source_id:
+        type: string
+        format: uuid
+      target_id:
+        type: string
+        format: uuid
+      type:
+        type: string
+      description:
+        type: string
+
+  CharacterArc:
+    type: object
+    properties:
+      character_id:
+        type: string
+        format: uuid
+      plot_card_id:
+        type: string
+        format: uuid
+      state_change:
+        type: string
+      internal_growth:
+        type: integer
+        format: int32
 
   PlotCard:
     type: object

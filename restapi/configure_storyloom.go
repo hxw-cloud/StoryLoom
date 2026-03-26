@@ -37,17 +37,16 @@ func configureFlags(api *operations.StoryloomAPI) {
 
 func configureAPI(api *operations.StoryloomAPI) http.Handler {
 	// Initialize the global SQLite database connection before configuring handlers.
-	// This ensures that all endpoint handlers have access to the active database session.
-	// "data.db" is a local SQLite file; for production, this should ideally be driven by config.
 	db.InitDB("data.db")
 
-	// Explicitly auto-migrate domain models to break the import cycle between db and domain packages.
-	// This synchronizes the database schema with the GORM models on application startup.
+	// Explicitly auto-migrate domain models.
 	err := db.DB.AutoMigrate(
 		&world.WorldSetting{},
 		&world.WorldTemplate{},
 		&world.HistoricalEvent{},
 		&character.Character{},
+		&character.Relationship{},
+		&character.CharacterArc{},
 		&plot.PlotCard{},
 		&scene.Scene{},
 		&timeline.TimelineEvent{},
@@ -60,18 +59,9 @@ func configureAPI(api *operations.StoryloomAPI) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
 
-	// Set your custom logger if needed. Default one is log.Printf
-	// Expected interface func(string, ...any)
-	//
-	// Example:
-	// api.Logger = log.Printf
-
 	api.UseSwaggerUI()
-	// To continue using redoc as your UI, uncomment the following line
-	// api.UseRedoc()
 
 	api.JSONConsumer = runtime.JSONConsumer()
-
 	api.JSONProducer = runtime.JSONProducer()
 
 	// Register World-Building Handlers
@@ -87,6 +77,11 @@ func configureAPI(api *operations.StoryloomAPI) http.Handler {
 	// Register Character Handlers
 	api.CharacterGetCharactersHandler = character_ops.GetCharactersHandlerFunc(character.HandleGetCharacters)
 	api.CharacterPostCharactersHandler = character_ops.PostCharactersHandlerFunc(character.HandlePostCharacters)
+	api.CharacterGetCharactersIDHandler = character_ops.GetCharactersIDHandlerFunc(character.HandleGetCharactersID)
+	api.CharacterPutCharactersIDHandler = character_ops.PutCharactersIDHandlerFunc(character.HandlePutCharactersID)
+	api.CharacterGetCharactersRelationshipsHandler = character_ops.GetCharactersRelationshipsHandlerFunc(character.HandleGetRelationships)
+	api.CharacterPostCharactersRelationshipsHandler = character_ops.PostCharactersRelationshipsHandlerFunc(character.HandlePostRelationship)
+	api.CharacterGetCharactersIDArcsHandler = character_ops.GetCharactersIDArcsHandlerFunc(character.HandleGetCharacterArcs)
 
 	// Register Plot Handlers
 	api.PlotGetPlotsHandler = plot_ops.GetPlotsHandlerFunc(plot.HandleGetPlots)
@@ -108,7 +103,6 @@ func configureAPI(api *operations.StoryloomAPI) http.Handler {
 	api.ConflictPostConflictsHandler = conflict_ops.PostConflictsHandlerFunc(conflict.HandlePostConflicts)
 
 	api.PreServerShutdown = func() {}
-
 	api.ServerShutdown = func() {}
 
 	return setupGlobalMiddleware(api.Serve(setupMiddlewares))
@@ -116,33 +110,22 @@ func configureAPI(api *operations.StoryloomAPI) http.Handler {
 
 // The TLS configuration before HTTPS server starts.
 func configureTLS(tlsConfig *tls.Config) {
-	// Make all necessary changes to the TLS configuration here.
 	_ = tlsConfig
 }
 
-// As soon as server is initialized but not run yet, this function will be called.
-// If you need to modify a config, store server instance to stop it individually later, this is the place.
-// This function can be called multiple times, depending on the number of serving schemes.
-// scheme value will be set accordingly: "http", "https" or "unix".
 func configureServer(server *http.Server, scheme, addr string) {
 	_ = server
 	_ = scheme
 	_ = addr
 }
 
-// The middleware configuration is for the handler executors. These do not apply to the swagger.json document.
-// The middleware executes after routing but before authentication, binding and validation.
 func setupMiddlewares(handler http.Handler) http.Handler {
 	return handler
 }
 
-// The middleware configuration happens before anything, this middleware also applies to serving the swagger.json document.
-// So this is a good place to plug in a panic handling middleware, logging and metrics.
 func setupGlobalMiddleware(handler http.Handler) http.Handler {
-	// Add CORS support so the React frontend (running on a different port)
-	// can communicate with the Go backend during development.
 	return cors.New(cors.Options{
-		AllowedOrigins: []string{"http://localhost:5173", "http://localhost:3000"}, // Vite/React defaults
+		AllowedOrigins: []string{"http://localhost:5173", "http://localhost:3000"},
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders: []string{"Content-Type", "Authorization"},
 		Debug:          false,

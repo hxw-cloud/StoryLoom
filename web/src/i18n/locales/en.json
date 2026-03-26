@@ -6,7 +6,8 @@
     "loading": "Loading manuscript...",
     "actions": "Actions",
     "new": "New",
-    "use": "Use Template"
+    "use": "Use Template",
+    "search": "Search..."
   },
   "nav": {
     "world": "World Building",
@@ -45,5 +46,29 @@
     "empty": "No settings defined yet.",
     "addError": "Failed to create setting",
     "error": "Failed to load world data."
+  },
+  "character": {
+    "title": "Character System",
+    "tabs": {
+      "list": "Characters",
+      "network": "Relationship Map",
+      "arcs": "Growth Arcs"
+    },
+    "fields": {
+      "name": "Full Name",
+      "age": "Age",
+      "gender": "Gender",
+      "role": "Structural Role",
+      "camp": "Camp / Faction",
+      "appearance": "Appearance",
+      "background": "Background",
+      "want": "What they WANT (Goal)",
+      "need": "What they NEED (Internal)",
+      "persona": "Persona / Voice"
+    },
+    "newCharacter": "New Character",
+    "empty": "No characters tracked yet. Create your protagonist!",
+    "addError": "Failed to create character",
+    "error": "Failed to load character data."
   }
 }
