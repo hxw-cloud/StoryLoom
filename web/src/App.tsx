@@ -2,13 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import WorldSettings from './features/world/WorldSettings';
+import Characters from './features/character/Characters';
+import PlotOutline from './features/plot/PlotOutline';
+import SceneEditor from './features/scene/SceneEditor';
+import Timeline from './features/timeline/Timeline';
 import styles from './App.module.css';
-
-// Placeholder components
-const Characters = () => <div className={styles.content}><h2>Characters</h2><p>Track your characters and their POVs.</p></div>;
-const PlotOutline = () => <div className={styles.content}><h2>Plot Outline</h2><p>Structure your story beats and pacing.</p></div>;
-const SceneEditor = () => <div className={styles.content}><h2>Scene Editor</h2><p>Write your scenes and get logic audits.</p></div>;
-const Timeline = () => <div className={styles.content}><h2>Timeline</h2><p>Visualize the chronological flow of events.</p></div>;
 
 const App: React.FC = () => {
   return (

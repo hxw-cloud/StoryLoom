@@ -1,0 +1,117 @@
+.container {
+  padding: var(--spacing-xl);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  flex-shrink: 0;
+}
+
+.header h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.addButton {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.addButton:hover {
+  opacity: 0.9;
+}
+
+.board {
+  flex: 1;
+  display: flex;
+  gap: var(--spacing-lg);
+  overflow-x: auto;
+  padding-bottom: var(--spacing-lg);
+  align-items: flex-start;
+}
+
+.plotCard {
+  background-color: var(--color-surface);
+  min-width: 280px;
+  max-width: 280px;
+  padding: var(--spacing-lg);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  position: relative;
+  max-height: 100%;
+}
+
+.cardIndex {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-grey);
+  margin-bottom: -4px;
+}
+
+.plotCard h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-slate);
+}
+
+.description {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+.intensityTracker {
+  margin-top: auto;
+  padding-top: var(--spacing-md);
+}
+
+.intensityTracker span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.intensityBar {
+  height: 6px;
+  background-color: var(--color-bg);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.intensityFill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.empty, .loading, .error {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.error {
+  color: var(--color-accent-crimson);
+}
