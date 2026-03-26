@@ -3,7 +3,7 @@
     "add": "添加",
     "save": "保存",
     "cancel": "取消",
-    "loading": "正在打开原稿...",
+    "loading": "加载中...",
     "actions": "操作",
     "new": "新建",
     "use": "使用模板",
@@ -16,43 +16,13 @@
     "scene": "场景编排",
     "timeline": "时间轴"
   },
-  "world": {
-    "title": "世界观构建",
-    "newSetting": "新增设定",
-    "tabs": {
-      "custom": "核心设定",
-      "templates": "专业细节库",
-      "history": "历史事件",
-      "audit": "冰山审计"
-    },
-    "categories": {
-      "all": "所有分类",
-      "geography": "地理",
-      "magic": "魔法系统",
-      "tech": "技术水平",
-      "race": "种族",
-      "culture": "文化自定义"
-    },
-    "placeholders": {
-      "name": "例如：万有引力定律",
-      "description": "描述该设定...",
-      "search": "搜索设定..."
-    },
-    "history": {
-      "newEvent": "记录事件",
-      "addError": "创建历史事件失败"
-    },
-    "usage": "引用次数",
-    "empty": "尚未定义设定。",
-    "addError": "创建设定失败",
-    "error": "加载世界数据失败。"
-  },
   "character": {
     "title": "角色系统",
     "tabs": {
       "list": "人物档案",
-      "network": "关系网络",
-      "arcs": "成长弧光"
+      "network": "关系图谱",
+      "arcs": "成长弧光",
+      "blindTest": "语调 ä盲测"
     },
     "fields": {
       "name": "全名",
@@ -66,8 +36,18 @@
       "need": "内心需要什么（成长）",
       "persona": "人格/语调模板"
     },
+    "network": {
+      "hint": "拖拽节点以整理。悬放查看关系详情。",
+      "addRel": "连接角色"
+    },
+    "blindTest": {
+      "title": "角色辨识度盲测",
+      "instruction": "你能仅凭对白风格辨认出这是哪个角色吗？",
+      "reveal": "揭晓姓名",
+      "next": "下一句"
+    },
     "newCharacter": "新增角色",
-    "empty": "尚未追踪任何角色。创建你的主角吧！",
+    "empty": "尚未追踪任何角色。",
     "addError": "创建角色失败",
     "error": "加载角色数据失败。"
   }

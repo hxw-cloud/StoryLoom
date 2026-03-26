@@ -73,6 +73,8 @@ export interface WorldSetting {
   name: string;
   description?: string;
   logic_rules?: string;
+  tags?: string[];
+  usage_count?: number;
   created_at: string;
 }
 
@@ -81,6 +83,7 @@ export interface WorldSettingInput {
   name: string;
   description?: string;
   logic_rules?: string;
+  tags?: string[];
 }
 
 export interface Scene {

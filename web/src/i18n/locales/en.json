@@ -3,7 +3,7 @@
     "add": "Add",
     "save": "Save",
     "cancel": "Cancel",
-    "loading": "Loading manuscript...",
+    "loading": "Loading...",
     "actions": "Actions",
     "new": "New",
     "use": "Use Template",
@@ -16,43 +16,13 @@
     "scene": "Scene Editor",
     "timeline": "Timeline"
   },
-  "world": {
-    "title": "World Building",
-    "newSetting": "New Setting",
-    "tabs": {
-      "custom": "Settings",
-      "templates": "Detail Library",
-      "history": "Historical Events",
-      "audit": "Iceberg Audit"
-    },
-    "categories": {
-      "all": "All Categories",
-      "geography": "Geography",
-      "magic": "Magic System",
-      "tech": "Technology",
-      "race": "Race",
-      "culture": "Culture"
-    },
-    "placeholders": {
-      "name": "e.g. The Law of Gravity",
-      "description": "Describe the setting...",
-      "search": "Search settings..."
-    },
-    "history": {
-      "newEvent": "Record Event",
-      "addError": "Failed to create historical event"
-    },
-    "usage": "Usage Count",
-    "empty": "No settings defined yet.",
-    "addError": "Failed to create setting",
-    "error": "Failed to load world data."
-  },
   "character": {
     "title": "Character System",
     "tabs": {
-      "list": "Characters",
+      "list": "Profiles",
       "network": "Relationship Map",
-      "arcs": "Growth Arcs"
+      "arcs": "Growth Arcs",
+      "blindTest": "Voice Blind Test"
     },
     "fields": {
       "name": "Full Name",
@@ -66,8 +36,18 @@
       "need": "What they NEED (Internal)",
       "persona": "Persona / Voice"
     },
+    "network": {
+      "hint": "Drag nodes to organize. Hover to see relationship details.",
+      "addRel": "Connect Characters"
+    },
+    "blindTest": {
+      "title": "Voice Identifiability Test",
+      "instruction": "Can you identify which character said this based solely on their dialogue style?",
+      "reveal": "Show Name",
+      "next": "Next Quote"
+    },
     "newCharacter": "New Character",
-    "empty": "No characters tracked yet. Create your protagonist!",
+    "empty": "No characters tracked yet.",
     "addError": "Failed to create character",
     "error": "Failed to load character data."
   }

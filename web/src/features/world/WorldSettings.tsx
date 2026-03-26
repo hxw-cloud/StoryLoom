@@ -164,10 +164,10 @@ const WorldSettings: React.FC = () => {
                 <p className={styles.description}>{setting.description}</p>
                 {setting.tags && setting.tags.length > 0 && (
                   <div className={styles.tags}>
-                    {setting.tags.map(tag => <span key={tag} className={styles.tag}>#{tag}</span>)}
+                    {setting.tags.map((tag: string) => <span key={tag} className={styles.tag}>#{tag}</span>)}
                   </div>
                 )}
-                <div className={styles.usageInfo}>{t('world.usage')}: {setting.usage_count}</div>
+                <div className={styles.usageInfo}>{t('world.usage')}: {setting.usage_count || 0}</div>
               </div>
             ))
           )

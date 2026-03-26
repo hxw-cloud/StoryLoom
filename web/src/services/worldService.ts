@@ -1,5 +1,5 @@
 import apiClient from './api';
-import type { WorldSetting, WorldSettingInput, WorldTemplate } from './types';
+import type { WorldSetting, WorldSettingInput, WorldTemplate, HistoricalEvent, HistoricalEventInput, WorldAuditData } from './types';
 
 export const worldService = {
   getSettings: async (): Promise<WorldSetting[]> => {
