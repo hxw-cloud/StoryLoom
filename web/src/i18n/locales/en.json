@@ -18,16 +18,14 @@
   "world": {
     "title": "World Building",
     "newSetting": "New Setting",
-    "templates": "Professional Detail Library",
-    "category": "Category",
-    "name": "Name",
-    "description": "Description",
-    "logicRules": "Logic Rules",
-    "empty": "No settings defined yet. Start building your world!",
-    "addSuccess": "Setting created successfully",
-    "addError": "Failed to create setting",
-    "error": "Failed to load world settings.",
+    "tabs": {
+      "custom": "Settings",
+      "templates": "Detail Library",
+      "history": "Historical Events",
+      "audit": "Iceberg Audit"
+    },
     "categories": {
+      "all": "All Categories",
       "geography": "Geography",
       "magic": "Magic System",
       "tech": "Technology",
@@ -37,7 +35,15 @@
     "placeholders": {
       "name": "e.g. The Law of Gravity",
       "description": "Describe the setting...",
-      "logicRules": "Machine-readable rules or strict constraints..."
-    }
+      "search": "Search settings..."
+    },
+    "history": {
+      "newEvent": "Record Event",
+      "addError": "Failed to create historical event"
+    },
+    "usage": "Usage Count",
+    "empty": "No settings defined yet.",
+    "addError": "Failed to create setting",
+    "error": "Failed to load world data."
   }
 }

@@ -46,6 +46,7 @@ func configureAPI(api *operations.StoryloomAPI) http.Handler {
 	err := db.DB.AutoMigrate(
 		&world.WorldSetting{},
 		&world.WorldTemplate{},
+		&world.HistoricalEvent{},
 		&character.Character{},
 		&plot.PlotCard{},
 		&scene.Scene{},
@@ -76,6 +77,11 @@ func configureAPI(api *operations.StoryloomAPI) http.Handler {
 	// Register World-Building Handlers
 	api.WorldGetWorldSettingsHandler = world_ops.GetWorldSettingsHandlerFunc(world.HandleGetSettings)
 	api.WorldPostWorldSettingsHandler = world_ops.PostWorldSettingsHandlerFunc(world.HandlePostSettings)
+	api.WorldGetWorldSettingsIDHandler = world_ops.GetWorldSettingsIDHandlerFunc(world.HandleGetSettingsID)
+	api.WorldPutWorldSettingsIDHandler = world_ops.PutWorldSettingsIDHandlerFunc(world.HandlePutSettingsID)
+	api.WorldGetWorldHistoryHandler = world_ops.GetWorldHistoryHandlerFunc(world.HandleGetHistory)
+	api.WorldPostWorldHistoryHandler = world_ops.PostWorldHistoryHandlerFunc(world.HandlePostHistory)
+	api.WorldGetWorldAuditHandler = world_ops.GetWorldAuditHandlerFunc(world.HandleGetAudit)
 	api.WorldGetWorldTemplatesHandler = world_ops.GetWorldTemplatesHandlerFunc(world.HandleGetTemplates)
 
 	// Register Character Handlers

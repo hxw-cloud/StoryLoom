@@ -88,6 +88,33 @@ export interface WorldTemplate {
   suggested_logic?: string;
 }
 
+export interface HistoricalEvent {
+  id: string;
+  title: string;
+  event_time: string;
+  impact_scope?: string;
+  involved_characters: string[];
+  cause?: string;
+  effect?: string;
+  is_iceberg_tip: boolean;
+  created_at: string;
+}
+
+export interface HistoricalEventInput {
+  title: string;
+  event_time: string;
+  impact_scope?: string;
+  involved_characters: string[];
+  cause?: string;
+  effect?: string;
+  is_iceberg_tip: boolean;
+}
+
+export interface WorldAuditData {
+  intensity_map: Record<string, number>;
+  iceberg_ratio: number;
+}
+
 export interface AuditResult {
   is_valid: boolean;
   issues: string[];

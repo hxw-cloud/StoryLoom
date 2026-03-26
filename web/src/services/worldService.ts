@@ -14,4 +14,16 @@ export const worldService = {
     const response = await apiClient.get<WorldTemplate[]>('/world/templates');
     return response.data;
   },
+  getHistory: async (): Promise<HistoricalEvent[]> => {
+    const response = await apiClient.get<HistoricalEvent[]>('/world/history');
+    return response.data;
+  },
+  createHistory: async (event: HistoricalEventInput): Promise<HistoricalEvent> => {
+    const response = await apiClient.post<HistoricalEvent>('/world/history', event);
+    return response.data;
+  },
+  getAudit: async (): Promise<WorldAuditData> => {
+    const response = await apiClient.get<WorldAuditData>('/world/audit');
+    return response.data;
+  },
 };

@@ -8,43 +8,49 @@ import (
 )
 
 // WorldSetting represents a foundational rule, concept, or element of the story's world.
-// In the context of StoryLoom, this is not just descriptive text, but a "Logic Setting"
-// that the Digital Editor will use to validate the consistency of the narrative.
-// For example, if a setting dictates "Magic requires verbal incantations," the Editor
-// can flag scenes where a gagged character casts a spell.
+// Enhanced for REQ-1.1 and REQ-1.2.
 type WorldSetting struct {
-	// ID is the unique identifier for the setting, utilizing UUID for global uniqueness
-	// across distributed systems or offline sync scenarios.
-	ID string `gorm:"primaryKey;type:varchar(36)"`
-
-	// Category classifies the setting into a distinct domain (e.g., Geography, Magic System).
-	// This grouping allows writers and the AI Editor to filter and validate rules contextually.
-	// For instance, combat scenes might trigger validation checks specifically against the
-	// "Magic System" or "Technology" categories.
-	Category string `gorm:"type:varchar(100);not null"`
-
-	// Name is the human-readable title of the setting (e.g., "The Law of Equivalent Exchange").
-	// It is indexed to allow for fast autocomplete and search operations in the UI.
-	Name string `gorm:"type:varchar(200);not null;index"`
-
-	// Description contains the detailed, human-readable explanation of the setting.
-	// This provides the narrative flavor and historical context for the writer.
+	ID          string `gorm:"primaryKey;type:varchar(36)"`
+	Category    string `gorm:"type:varchar(100);not null"`
+	Name        string `gorm:"type:varchar(200);not null;index"`
 	Description string `gorm:"type:text"`
+	LogicRules  string `gorm:"type:text"`
 
-	// LogicRules contains the machine-parseable or explicit logical constraints that
-	// this setting imposes on the world. This field is critical for the AI "Digital Editor"
-	// to perform automated consistency checks against the plot and character actions.
-	LogicRules string `gorm:"type:text"`
+	// Tags for multi-dimensional management (REQ-1.1)
+	// Stored as a comma-separated string for SQLite simplicity, but can be split in logic.
+	Tags string `gorm:"type:text"`
 
-	// CreatedAt timestamps the creation of the setting, useful for auditing and sorting.
+	// ImageURL for reference (REQ-1.1)
+	ImageURL string `gorm:"type:varchar(500)"`
+
+	// ParentID for infinite nested classification (REQ-1.2)
+	ParentID string `gorm:"type:varchar(36);index"`
+
+	// UsageCount for Iceberg Theory tracking (REQ-1.4)
+	UsageCount int `gorm:"type:int;default:0"`
+
 	CreatedAt time.Time
-
-	// UpdatedAt timestamps the last modification, useful for cache invalidation and syncing.
 	UpdatedAt time.Time
 }
 
-// WorldTemplate represents a pre-defined professional world-building element
-// that writers can use as a starting point or inspiration.
+// HistoricalEvent records significant past occurrences (REQ-1.3).
+type HistoricalEvent struct {
+	ID          string `gorm:"primaryKey;type:varchar(36)"`
+	Title       string `gorm:"type:varchar(255);not null"`
+	EventTime   string `gorm:"type:varchar(100)"`
+	ImpactScope string `gorm:"type:text"`
+
+	// InvolvedCharacters stored as comma-separated IDs
+	InvolvedCharacters string `gorm:"type:text"`
+
+	Cause        string `gorm:"type:text"`
+	Effect       string `gorm:"type:text"`
+	IsIcebergTip bool   `gorm:"type:boolean;default:false"`
+
+	CreatedAt time.Time
+}
+
+// WorldTemplate represents a pre-defined professional world-building element (REQ-1.4).
 type WorldTemplate struct {
 	ID             string `gorm:"primaryKey;type:varchar(36)"`
 	Category       string `gorm:"type:varchar(100);not null"`
@@ -53,16 +59,16 @@ type WorldTemplate struct {
 	SuggestedLogic string `gorm:"type:text"`
 }
 
-// BeforeCreate is a GORM hook that executes prior to inserting a new record into the database.
-// We use this hook to automatically generate a UUID for the WorldSetting if one hasn't
-// been provided. This ensures that our primary keys are always valid, distributed-friendly
-// identifiers without requiring the handler or business logic layer to manage ID generation.
 func (ws *WorldSetting) BeforeCreate(tx *gorm.DB) (err error) {
-	// Check if the ID is empty to prevent overwriting IDs that might have been
-	// explicitly set (e.g., during a data import or sync operation).
 	if ws.ID == "" {
-		// Generate a new Version 4 UUID.
 		ws.ID = uuid.New().String()
+	}
+	return
+}
+
+func (he *HistoricalEvent) BeforeCreate(tx *gorm.DB) (err error) {
+	if he.ID == "" {
+		he.ID = uuid.New().String()
 	}
 	return
 }

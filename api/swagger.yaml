@@ -70,6 +70,16 @@ paths:
       summary: List all world settings
       tags:
         - World
+      parameters:
+        - name: category
+          in: query
+          type: string
+        - name: tag
+          in: query
+          type: string
+        - name: search
+          in: query
+          type: string
       responses:
         200:
           description: A list of world settings
@@ -92,6 +102,84 @@ paths:
           description: Created world setting
           schema:
             $ref: '#/definitions/WorldSetting'
+
+  /world/settings/{id}:
+    get:
+      summary: Get a world setting by ID
+      tags:
+        - World
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: World setting details
+          schema:
+            $ref: '#/definitions/WorldSetting'
+        404:
+          description: Not found
+    put:
+      summary: Update a world setting
+      tags:
+        - World
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/WorldSettingInput'
+      responses:
+        200:
+          description: Updated
+        404:
+          description: Not found
+
+  /world/history:
+    get:
+      summary: List all historical events
+      tags:
+        - World
+      responses:
+        200:
+          description: List of historical events
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/HistoricalEvent'
+    post:
+      summary: Record a new historical event
+      tags:
+        - World
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/HistoricalEventInput'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/HistoricalEvent'
+
+  /world/audit:
+    get:
+      summary: Get usage intensity and iceberg analysis for world settings
+      tags:
+        - World
+      responses:
+        200:
+          description: Audit data
+          schema:
+            $ref: '#/definitions/WorldAuditData'
 
   /world/templates:
     get:
@@ -290,14 +378,23 @@ definitions:
         format: uuid
       category:
         type: string
-        description: 'e.g., Geography, Magic System, Technology, Race'
       name:
         type: string
       description:
         type: string
       logic_rules:
         type: string
-        description: 'Rules that this setting imposes on the world (used for logic validation)'
+      tags:
+        type: array
+        items:
+          type: string
+      image_url:
+        type: string
+      parent_id:
+        type: string
+        format: uuid
+      usage_count:
+        type: integer
       created_at:
         type: string
         format: date-time
@@ -316,6 +413,74 @@ definitions:
         type: string
       logic_rules:
         type: string
+      tags:
+        type: array
+        items:
+          type: string
+      image_url:
+        type: string
+      parent_id:
+        type: string
+        format: uuid
+
+  HistoricalEvent:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      title:
+        type: string
+      event_time:
+        type: string
+      impact_scope:
+        type: string
+      involved_characters:
+        type: array
+        items:
+          type: string
+      cause:
+        type: string
+      effect:
+        type: string
+      is_iceberg_tip:
+        type: boolean
+      created_at:
+        type: string
+        format: date-time
+
+  HistoricalEventInput:
+    type: object
+    required:
+      - title
+      - event_time
+    properties:
+      title:
+        type: string
+      event_time:
+        type: string
+      impact_scope:
+        type: string
+      involved_characters:
+        type: array
+        items:
+          type: string
+      cause:
+        type: string
+      effect:
+        type: string
+      is_iceberg_tip:
+        type: boolean
+
+  WorldAuditData:
+    type: object
+    properties:
+      intensity_map:
+        type: object
+        additionalProperties:
+          type: integer
+      iceberg_ratio:
+        type: number
 
   Scene:
     type: object
@@ -328,20 +493,15 @@ definitions:
       plot_card_id:
         type: string
         format: uuid
-        description: 'The narrative beat this scene belongs to.'
       pov_character_id:
         type: string
         format: uuid
-        description: 'The character whose perspective this scene is written from.'
       goal:
         type: string
-        description: 'What the POV character wants to achieve in this scene.'
       conflict:
         type: string
-        description: 'The obstacle preventing the character from achieving their goal.'
       resolution:
         type: string
-        description: 'How the scene ends (e.g., Disaster, Success, Yes but...).'
       created_at:
         type: string
         format: date-time
@@ -380,11 +540,9 @@ definitions:
       chronological_order:
         type: integer
         format: int32
-        description: 'The global chronological ordering of this event.'
       scene_id:
         type: string
         format: uuid
-        description: 'Optional: The specific scene where this event happens.'
       created_at:
         type: string
         format: date-time
@@ -411,12 +569,10 @@ definitions:
     properties:
       is_valid:
         type: boolean
-        description: 'True if no logic violations were found.'
       issues:
         type: array
         items:
           type: string
-        description: 'A list of human-readable warnings or violations generated by the Digital Editor.'
 
   Conflict:
     type: object
@@ -426,7 +582,6 @@ definitions:
         format: uuid
       type:
         type: string
-        description: 'e.g., Man vs Self, Man vs Nature, Man vs Society'
       description:
         type: string
       intensity:
@@ -472,4 +627,3 @@ definitions:
         type: string
       suggested_logic:
         type: string
-
