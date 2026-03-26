@@ -1,0 +1,26 @@
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  margin-left: 250px; /* Width of sidebar */
+  background-color: var(--color-bg);
+  min-height: 100vh;
+}
+
+.content {
+  padding: var(--spacing-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content h2 {
+  margin-bottom: var(--spacing-md);
+  font-size: 2rem;
+}
+
+.content p {
+  color: var(--color-text-secondary);
+}
