@@ -9,6 +9,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 
+	"github.com/hxw-cloud/StoryLoom/internal/audit"
 	"github.com/hxw-cloud/StoryLoom/internal/character"
 	"github.com/hxw-cloud/StoryLoom/internal/plot"
 	"github.com/hxw-cloud/StoryLoom/internal/scene"
@@ -16,6 +17,7 @@ import (
 	"github.com/hxw-cloud/StoryLoom/internal/world"
 	"github.com/hxw-cloud/StoryLoom/pkg/db"
 	"github.com/hxw-cloud/StoryLoom/restapi/operations"
+	"github.com/hxw-cloud/StoryLoom/restapi/operations/audit"
 	character_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/character"
 	plot_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/plot"
 	scene_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/scene"
@@ -85,6 +87,9 @@ func configureAPI(api *operations.StoryloomAPI) http.Handler {
 	// Register Timeline Handlers
 	api.TimelineGetTimelineEventsHandler = timeline_ops.GetTimelineEventsHandlerFunc(timeline.HandleGetTimelineEvents)
 	api.TimelinePostTimelineEventsHandler = timeline_ops.PostTimelineEventsHandlerFunc(timeline.HandlePostTimelineEvents)
+
+	// Register Audit Handlers
+	api.AuditGetAuditSceneHandler = audit.GetAuditSceneHandlerFunc(audit_internal.HandleAuditScene)
 
 	api.PreServerShutdown = func() {}
 
