@@ -18,7 +18,7 @@ import (
 	"github.com/hxw-cloud/StoryLoom/internal/world"
 	"github.com/hxw-cloud/StoryLoom/pkg/db"
 	"github.com/hxw-cloud/StoryLoom/restapi/operations"
-	"github.com/hxw-cloud/StoryLoom/restapi/operations/audit"
+	audit_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/audit"
 	character_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/character"
 	conflict_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/conflict"
 	plot_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/plot"
