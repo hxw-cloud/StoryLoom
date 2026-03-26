@@ -8,6 +8,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/rs/cors"
 
 	audit_internal "github.com/hxw-cloud/StoryLoom/internal/audit"
 	"github.com/hxw-cloud/StoryLoom/internal/character"
@@ -130,5 +131,12 @@ func setupMiddlewares(handler http.Handler) http.Handler {
 // The middleware configuration happens before anything, this middleware also applies to serving the swagger.json document.
 // So this is a good place to plug in a panic handling middleware, logging and metrics.
 func setupGlobalMiddleware(handler http.Handler) http.Handler {
-	return handler
+	// Add CORS support so the React frontend (running on a different port)
+	// can communicate with the Go backend during development.
+	return cors.New(cors.Options{
+		AllowedOrigins: []string{"http://localhost:5173", "http://localhost:3000"}, // Vite/React defaults
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders: []string{"Content-Type", "Authorization"},
+		Debug:          false,
+	}).Handler(handler)
 }

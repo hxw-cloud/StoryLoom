@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { characterService } from '../../services/characterService';
-import type { Character } from '../../services/types';
+import type { Character, CharacterInput } from '../../services/types';
+import Modal from '../../components/Modal';
 import styles from './Characters.module.css';
 
 const Characters: React.FC = () => {
@@ -8,21 +9,41 @@ const Characters: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchCharacters = async () => {
-      try {
-        const data = await characterService.getCharacters();
-        setCharacters(data);
-      } catch (err) {
-        setError('Failed to load characters.');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Modal State
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newChar, setNewChar] = useState<CharacterInput>({
+    name: '',
+    role: 'Protagonist',
+    pov_type: 'Third Person Limited',
+  });
 
+  const fetchCharacters = async () => {
+    try {
+      const data = await characterService.getCharacters();
+      setCharacters(data);
+    } catch (err) {
+      setError('Failed to load characters.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchCharacters();
   }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await characterService.createCharacter(newChar);
+      setIsModalOpen(false);
+      setNewChar({ name: '', role: 'Protagonist', pov_type: 'Third Person Limited' });
+      fetchCharacters();
+    } catch (err) {
+      alert('Failed to create character');
+    }
+  };
 
   if (loading) return <div className={styles.loading}>Loading characters...</div>;
   if (error) return <div className={styles.error}>{error}</div>;
@@ -31,7 +52,7 @@ const Characters: React.FC = () => {
     <div className={styles.container}>
       <header className={styles.header}>
         <h2>Characters</h2>
-        <button className={styles.addButton}>+ New Character</button>
+        <button className={styles.addButton} onClick={() => setIsModalOpen(true)}>+ New Character</button>
       </header>
       
       <div className={styles.list}>
@@ -56,6 +77,51 @@ const Characters: React.FC = () => {
           ))
         )}
       </div>
+
+      <Modal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        title="Add New Character"
+      >
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.formGroup}>
+            <label>Full Name</label>
+            <input 
+              type="text" 
+              required 
+              value={newChar.name}
+              onChange={e => setNewChar({...newChar, name: e.target.value})}
+              placeholder="e.g. Elara Vance"
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Structural Role</label>
+            <select 
+              value={newChar.role} 
+              onChange={e => setNewChar({...newChar, role: e.target.value})}
+            >
+              <option value="Protagonist">Protagonist</option>
+              <option value="Antagonist">Antagonist</option>
+              <option value="Supporting">Supporting</option>
+              <option value="Mentor">Mentor</option>
+              <option value="Love Interest">Love Interest</option>
+            </select>
+          </div>
+          <div className={styles.formGroup}>
+            <label>Default POV Type</label>
+            <select 
+              value={newChar.pov_type} 
+              onChange={e => setNewChar({...newChar, pov_type: e.target.value})}
+            >
+              <option value="First Person">First Person</option>
+              <option value="Third Person Limited">Third Person Limited</option>
+              <option value="Third Person Omniscient">Third Person Omniscient</option>
+              <option value="Third Person Objective">Third Person Objective</option>
+            </select>
+          </div>
+          <button type="submit" className={styles.submitButton}>Create Character</button>
+        </form>
+      </Modal>
     </div>
   );
 };
