@@ -11,14 +11,16 @@ import (
 
 	audit_internal "github.com/hxw-cloud/StoryLoom/internal/audit"
 	"github.com/hxw-cloud/StoryLoom/internal/character"
+	"github.com/hxw-cloud/StoryLoom/internal/conflict"
 	"github.com/hxw-cloud/StoryLoom/internal/plot"
 	"github.com/hxw-cloud/StoryLoom/internal/scene"
 	"github.com/hxw-cloud/StoryLoom/internal/timeline"
 	"github.com/hxw-cloud/StoryLoom/internal/world"
 	"github.com/hxw-cloud/StoryLoom/pkg/db"
 	"github.com/hxw-cloud/StoryLoom/restapi/operations"
-	audit_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/audit"
+	"github.com/hxw-cloud/StoryLoom/restapi/operations/audit"
 	character_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/character"
+	conflict_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/conflict"
 	plot_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/plot"
 	scene_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/scene"
 	timeline_ops "github.com/hxw-cloud/StoryLoom/restapi/operations/timeline"
@@ -46,6 +48,7 @@ func configureAPI(api *operations.StoryloomAPI) http.Handler {
 		&plot.PlotCard{},
 		&scene.Scene{},
 		&timeline.TimelineEvent{},
+		&conflict.Conflict{},
 	)
 	if err != nil {
 		panic("Failed to migrate database schema: " + err.Error())
@@ -90,6 +93,10 @@ func configureAPI(api *operations.StoryloomAPI) http.Handler {
 
 	// Register Audit Handlers
 	api.AuditGetAuditSceneSceneIDHandler = audit_ops.GetAuditSceneSceneIDHandlerFunc(audit_internal.HandleAuditScene)
+
+	// Register Conflict Handlers
+	api.ConflictGetConflictsHandler = conflict_ops.GetConflictsHandlerFunc(conflict.HandleGetConflicts)
+	api.ConflictPostConflictsHandler = conflict_ops.PostConflictsHandlerFunc(conflict.HandlePostConflicts)
 
 	api.PreServerShutdown = func() {}
 
