@@ -80,6 +80,14 @@ export interface TimelineEventInput {
   scene_id?: string;
 }
 
+export interface WorldTemplate {
+  id: string;
+  category: string;
+  name: string;
+  description?: string;
+  suggested_logic?: string;
+}
+
 export interface AuditResult {
   is_valid: boolean;
   issues: string[];

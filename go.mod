@@ -13,6 +13,7 @@ require (
 	github.com/go-openapi/validate v0.25.2
 	github.com/google/uuid v1.6.0
 	github.com/jessevdk/go-flags v1.6.1
+	github.com/rs/cors v1.11.1
 	golang.org/x/net v0.52.0
 	gorm.io/gorm v1.31.1
 )
@@ -41,7 +42,6 @@ require (
 	github.com/mattn/go-isatty v0.0.17 // indirect
 	github.com/oklog/ulid/v2 v2.1.1 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
-	github.com/rs/cors v1.11.1 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/sync v0.20.0 // indirect
 	golang.org/x/sys v0.42.0 // indirect

@@ -1,0 +1,43 @@
+{
+  "common": {
+    "add": "Add",
+    "save": "Save",
+    "cancel": "Cancel",
+    "loading": "Loading manuscript...",
+    "actions": "Actions",
+    "new": "New",
+    "use": "Use Template"
+  },
+  "nav": {
+    "world": "World Building",
+    "character": "Characters",
+    "plot": "Plot Outline",
+    "scene": "Scene Editor",
+    "timeline": "Timeline"
+  },
+  "world": {
+    "title": "World Building",
+    "newSetting": "New Setting",
+    "templates": "Professional Detail Library",
+    "category": "Category",
+    "name": "Name",
+    "description": "Description",
+    "logicRules": "Logic Rules",
+    "empty": "No settings defined yet. Start building your world!",
+    "addSuccess": "Setting created successfully",
+    "addError": "Failed to create setting",
+    "error": "Failed to load world settings.",
+    "categories": {
+      "geography": "Geography",
+      "magic": "Magic System",
+      "tech": "Technology",
+      "race": "Race",
+      "culture": "Culture"
+    },
+    "placeholders": {
+      "name": "e.g. The Law of Gravity",
+      "description": "Describe the setting...",
+      "logicRules": "Machine-readable rules or strict constraints..."
+    }
+  }
+}

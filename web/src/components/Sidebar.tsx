@@ -1,8 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import styles from './Sidebar.module.css';
 
 const Sidebar: React.FC = () => {
+  const { t, i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'zh' ? 'en' : 'zh';
+    i18n.changeLanguage(newLang);
+  };
+
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logo}>
@@ -10,21 +18,26 @@ const Sidebar: React.FC = () => {
       </div>
       <nav className={styles.nav}>
         <NavLink to="/world" className={({ isActive }) => isActive ? styles.active : ''}>
-          World Building
+          {t('nav.world')}
         </NavLink>
         <NavLink to="/character" className={({ isActive }) => isActive ? styles.active : ''}>
-          Characters
+          {t('nav.character')}
         </NavLink>
         <NavLink to="/plot" className={({ isActive }) => isActive ? styles.active : ''}>
-          Plot Outline
+          {t('nav.plot')}
         </NavLink>
         <NavLink to="/scene" className={({ isActive }) => isActive ? styles.active : ''}>
-          Scene Editor
+          {t('nav.scene')}
         </NavLink>
         <NavLink to="/timeline" className={({ isActive }) => isActive ? styles.active : ''}>
-          Timeline
+          {t('nav.timeline')}
         </NavLink>
       </nav>
+      <div className={styles.footer}>
+        <button onClick={toggleLanguage} className={styles.langButton}>
+          {i18n.language === 'zh' ? 'English' : '中文'}
+        </button>
+      </div>
     </aside>
   );
 };

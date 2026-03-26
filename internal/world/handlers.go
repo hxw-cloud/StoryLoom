@@ -103,3 +103,34 @@ func HandlePostSettings(params world_ops.PostWorldSettingsParams) middleware.Res
 	// Return the 201 Created response with the populated model.
 	return world_ops.NewPostWorldSettingsCreated().WithPayload(response)
 }
+
+// HandleGetTemplates returns a list of professional world-building templates.
+// In a real application, these would be stored in the database, but for the MVP
+// we provide a robust set of initial hardcoded examples.
+func HandleGetTemplates(params world_ops.GetWorldTemplatesParams) middleware.Responder {
+	templates := []*models.WorldTemplate{
+		{
+			ID:             "t1",
+			Category:       "Magic System",
+			Name:           "Hard Magic: Resource Depletion",
+			Description:    "Magic is fueled by a non-renewable physical resource (e.g., gems, crystals).",
+			SuggestedLogic: "Cost: Physical resource consumed. Limit: Finite supply in the world.",
+		},
+		{
+			ID:             "t2",
+			Category:       "Geography",
+			Name:           "Vertical City-State",
+			Description:    "A society built entirely within a massive canyon or on a singular peak.",
+			SuggestedLogic: "Constraint: Travel between levels is highly controlled. Resource: Water flows top-to-bottom.",
+		},
+		{
+			ID:             "t3",
+			Category:       "Race",
+			Name:           "The Long-Lived Elders",
+			Description:    "A race that lives for centuries but has extremely low birth rates.",
+			SuggestedLogic: "Psychology: Highly conservative/risk-averse. Demographics: Children are extremely rare.",
+		},
+	}
+
+	return world_ops.NewGetWorldTemplatesOK().WithPayload(templates)
+}

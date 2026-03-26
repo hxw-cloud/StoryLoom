@@ -1,0 +1,43 @@
+{
+  "common": {
+    "add": "添加",
+    "save": "保存",
+    "cancel": "取消",
+    "loading": "正在打开原稿...",
+    "actions": "操作",
+    "new": "新建",
+    "use": "使用模板"
+  },
+  "nav": {
+    "world": "世界观构建",
+    "character": "角色系统",
+    "plot": "情节大纲",
+    "scene": "场景编排",
+    "timeline": "时间轴"
+  },
+  "world": {
+    "title": "世界观构建",
+    "newSetting": "新增设定",
+    "templates": "专业细节库",
+    "category": "分类",
+    "name": "名称",
+    "description": "描述",
+    "logicRules": "逻辑规则",
+    "empty": "尚未定义设定。开始构建你的世界吧！",
+    "addSuccess": "设定创建成功",
+    "addError": "创建设定失败",
+    "error": "加载世界观设定失败。",
+    "categories": {
+      "geography": "地理",
+      "magic": "魔法系统",
+      "tech": "技术水平",
+      "race": "种族",
+      "culture": "文化自定义"
+    },
+    "placeholders": {
+      "name": "例如：万有引力定律",
+      "description": "描述该设定...",
+      "logicRules": "机器可读规则或严格约束..."
+    }
+  }
+}

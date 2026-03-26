@@ -93,6 +93,19 @@ paths:
           schema:
             $ref: '#/definitions/WorldSetting'
 
+  /world/templates:
+    get:
+      summary: List professional world-building detail templates
+      tags:
+        - World
+      responses:
+        200:
+          description: A list of world-building templates
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WorldTemplate'
+
   /scenes:
     get:
       summary: List all scenes
@@ -444,3 +457,19 @@ definitions:
         maximum: 10
       resolved:
         type: boolean
+
+  WorldTemplate:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      category:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      suggested_logic:
+        type: string
+

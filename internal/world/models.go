@@ -43,6 +43,16 @@ type WorldSetting struct {
 	UpdatedAt time.Time
 }
 
+// WorldTemplate represents a pre-defined professional world-building element
+// that writers can use as a starting point or inspiration.
+type WorldTemplate struct {
+	ID             string `gorm:"primaryKey;type:varchar(36)"`
+	Category       string `gorm:"type:varchar(100);not null"`
+	Name           string `gorm:"type:varchar(200);not null"`
+	Description    string `gorm:"type:text"`
+	SuggestedLogic string `gorm:"type:text"`
+}
+
 // BeforeCreate is a GORM hook that executes prior to inserting a new record into the database.
 // We use this hook to automatically generate a UUID for the WorldSetting if one hasn't
 // been provided. This ensures that our primary keys are always valid, distributed-friendly

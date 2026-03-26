@@ -45,6 +45,7 @@ func configureAPI(api *operations.StoryloomAPI) http.Handler {
 	// This synchronizes the database schema with the GORM models on application startup.
 	err := db.DB.AutoMigrate(
 		&world.WorldSetting{},
+		&world.WorldTemplate{},
 		&character.Character{},
 		&plot.PlotCard{},
 		&scene.Scene{},
@@ -75,6 +76,7 @@ func configureAPI(api *operations.StoryloomAPI) http.Handler {
 	// Register World-Building Handlers
 	api.WorldGetWorldSettingsHandler = world_ops.GetWorldSettingsHandlerFunc(world.HandleGetSettings)
 	api.WorldPostWorldSettingsHandler = world_ops.PostWorldSettingsHandlerFunc(world.HandlePostSettings)
+	api.WorldGetWorldTemplatesHandler = world_ops.GetWorldTemplatesHandlerFunc(world.HandleGetTemplates)
 
 	// Register Character Handlers
 	api.CharacterGetCharactersHandler = character_ops.GetCharactersHandlerFunc(character.HandleGetCharacters)
